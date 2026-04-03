@@ -108,33 +108,19 @@ I tested the system with four different user profiles to evaluate its performanc
 - Mood matches (+1.0) provide good secondary ranking
 - Energy similarity scoring (0-1.0) works well for fine-tuning recommendations
 
-## CLI Verification Screenshot
+## CLI Verification Screenshots
 
-Here is the terminal output showing recommendations for the default "pop/happy" profile:
+Here are screenshots of the terminal output showing the music recommender in action:
 
-```
-Loading songs from ../data/songs.csv...
-Loaded songs: 19
+![Terminal Output 1](Screenshots/Screenshot%202026-04-03%20143731.png)
+![Terminal Output 2](Screenshots/Screenshot%202026-04-03%20143747.png)
+![Terminal Output 3](Screenshots/Screenshot%202026-04-03%20143755.png)
+![Terminal Output 4](Screenshots/Screenshot%202026-04-03%20143807.png)
+![Terminal Output 5](Screenshots/Screenshot%202026-04-03%20143817.png)
+![Terminal Output 6](Screenshots/Screenshot%202026-04-03%20143845.png)
+![Terminal Output 7](Screenshots/Screenshot%202026-04-03%20143852.png)
 
-=== Pop Happy High Energy ===
-1. Sunrise City by Neon Echo - Score: 3.98
-   Because: genre match (+2.0), mood match (+1.0), energy similarity (0.98)
-   Genre: pop, Mood: happy, Energy: 0.82
-2. Gym Hero by Max Pulse - Score: 2.87
-   Because: genre match (+2.0), energy similarity (0.87)
-   Genre: pop, Mood: intense, Energy: 0.93
-3. Rooftop Lights by Indigo Parade - Score: 1.96
-   Because: mood match (+1.0), energy similarity (0.96)
-   Genre: indie pop, Mood: happy, Energy: 0.76
-4. Dance Fever by Electro Beats - Score: 1.88
-   Because: mood match (+1.0), energy similarity (0.88)
-   Genre: electronic, Mood: happy, Energy: 0.92
-5. Night Drive Loop by Neon Echo - Score: 0.95
-   Because: energy similarity (0.95)
-   Genre: synthwave, Mood: moody, Energy: 0.75
-```
-
-The output shows clean, readable formatting with song titles, scores, scoring reasons, and song attributes for each recommendation.
+These screenshots show the formatted recommendations with scores, reasons, and song details for different user profiles.
 
 ---
 
