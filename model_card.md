@@ -88,53 +88,8 @@ The system performed well for users with strong genre preferences but showed lim
 - **Collaborative Features:** Add user-user similarity or song-song similarity
 - **Better Explanations:** Show how close misses performed and why they were ranked lower
 
-## 6. Limitations and Bias 
-
-Where the system struggles or behaves unfairly. 
-
-Prompts:  
-
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
-
----
-
-## 7. Evaluation  
-
-How you checked whether the recommender behaved as expected. 
-
-Prompts:  
-
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
-
-No need for numeric metrics unless you created some.
-
----
-
-## 8. Future Work  
-
-Ideas for how you would improve the model next.  
-
-Prompts:  
-
-- Additional features or preferences  
-- Better ways to explain recommendations  
-- Improving diversity among the top results  
-- Handling more complex user tastes  
-
 ---
 
 ## 9. Personal Reflection  
 
-A few sentences about your experience.  
-
-Prompts:  
-
-- What you learned about recommender systems  
-- Something unexpected or interesting you discovered  
-- How this changed the way you think about music recommendation apps  
+Building VibeFinder taught me how even a simple weighted scoring system can produce meaningful recommendations. I was surprised by how well the system differentiated between distinct user profiles like “intense rock” versus “chill lofi,” showing that even small datasets can illustrate recommendation concepts. Using AI tools helped speed up creating diverse test songs and brainstorming scoring logic, but I learned that human judgment is still crucial to verify calculations and ensure the recommendations feel reasonable. In future iterations, I want to explore balancing weights and adding collaborative filtering to reduce bias and make the system feel more dynamic.

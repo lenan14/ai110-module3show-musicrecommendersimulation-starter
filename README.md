@@ -2,7 +2,7 @@
 
 ## Project Summary
 
-This project builds a simple music recommender system that suggests songs based on a user’s taste profile. Songs and user preferences are represented using basic features such as genre, mood, and tempo. The system then applies a scoring method to compare songs with the user’s preferences and rank them accordingly. While it is a simplified version, it reflects how platforms like Spotify personalize recommendations. The project also explores how well the system performs, what it gets right or wrong, and how these ideas connect to real-world AI recommendation systems.
+This project builds a simple music recommender system that suggests songs based on a user's taste profile. Songs and user preferences are represented using basic features such as genre, mood, and tempo. The system then applies a scoring method to compare songs with the user's preferences and rank them accordingly. While it is a simplified version, it reflects how platforms like Spotify personalize recommendations. The project also explores how well the system performs, what it gets right or wrong, and how these ideas connect to real-world AI recommendation systems.
 
 ---
 
@@ -32,19 +32,20 @@ The system expects user preferences as a dictionary with:
 Songs are ranked by total score (highest first) and the top recommendations are returned with explanations of why each song was recommended.
 
 **Algorithm Recipe:**
-1. Take the user’s taste profile, including their preferred genre, mood, and energy level.  
+1. Take the user's taste profile, including their preferred genre, mood, and energy level.  
 2. Loop through each song in the dataset.  
-3. For each song, compare its features (genre, mood, energy) to the user’s preferences.  
+3. For each song, compare its features (genre, mood, energy) to the user's preferences.  
 4. Assign a score:
    - Add 2.0 points if the genre matches  
    - Add 1.0 point if the mood matches  
-   - Add an energy similarity score based on how close the song’s energy is to the user’s target  
+   - Add an energy similarity score based on how close the song's energy is to the user's target  
 5. Calculate the total score for each song.  
 6. Sort all songs from highest to lowest score.  
 7. Return the top-ranked songs as recommendations with explanations.
 
 **Potential Biases**
-- This system may over-prioritize genre because it has the highest weight, which could cause it to ignore songs that better match the user’s mood or energy but belong to a different genre.
+- This system may over-prioritize genre because it has the highest weight, which could cause it to ignore songs that better match the user's mood or energy but belong to a different genre.
+
 ---
 
 ## Getting Started
@@ -67,7 +68,9 @@ pip install -r requirements.txt
 3. Run the app:
 
 ```bash
-python -m src.main
+py -m src.main
+# or if you have python on PATH:
+# python -m src.main
 ```
 
 ### Running Tests
@@ -108,17 +111,19 @@ I tested the system with four different user profiles to evaluate its performanc
 - Mood matches (+1.0) provide good secondary ranking
 - Energy similarity scoring (0-1.0) works well for fine-tuning recommendations
 
-## CLI Verification Screenshots
+## CLI Verification + Recommendation Screenshot
+![Terminal Output 8](src/screenshots/Screenshot%202026-04-03%20151529.png)
 
-Here are screenshots of the terminal output showing the music recommender in action:
+## Stress Test with Diverse Profiles Screenshots
+Here are screenshots of the terminal's output for each profile's recommendations:
 
-![Terminal Output 1](Screenshots/Screenshot%202026-04-03%20143731.png)
-![Terminal Output 2](Screenshots/Screenshot%202026-04-03%20143747.png)
-![Terminal Output 3](Screenshots/Screenshot%202026-04-03%20143755.png)
-![Terminal Output 4](Screenshots/Screenshot%202026-04-03%20143807.png)
-![Terminal Output 5](Screenshots/Screenshot%202026-04-03%20143817.png)
-![Terminal Output 6](Screenshots/Screenshot%202026-04-03%20143845.png)
-![Terminal Output 7](Screenshots/Screenshot%202026-04-03%20143852.png)
+![Terminal Output 1](src/screenshots/Screenshot%202026-04-03%20143731.png)
+![Terminal Output 2](src/screenshots/Screenshot%202026-04-03%20143747.png)
+![Terminal Output 3](src/screenshots/Screenshot%202026-04-03%20143755.png)
+![Terminal Output 4](src/screenshots/Screenshot%202026-04-03%20143807.png)
+![Terminal Output 5](src/screenshots/Screenshot%202026-04-03%20143817.png)
+![Terminal Output 6](src/screenshots/Screenshot%202026-04-03%20143845.png)
+![Terminal Output 7](src/screenshots/Screenshot%202026-04-03%20143852.png)
 
 These screenshots show the formatted recommendations with scores, reasons, and song details for different user profiles.
 
@@ -140,7 +145,6 @@ The most surprising discovery was how well the system worked despite its simplic
 
 For the next iteration, I'd experiment with non-linear energy scoring and add collaborative filtering to reduce genre bias.
 
-
 ---
 
 ## 7. `model_card_template.md`
@@ -152,100 +156,94 @@ Combines reflection and model card framing from the Module 3 guidance. :contentR
 
 ## 1. Model Name
 
-Give your recommender a name, for example:
-
-> VibeFinder 1.0
+VibeFinder 1.0
 
 ---
 
 ## 2. Intended Use
 
-- What is this system trying to do
-- Who is it for
+VibeFinder is designed to recommend songs to users based on their musical preferences. It takes a user's favorite genre, preferred mood, and target energy level, then suggests the top 5 most relevant songs from a catalog. This simulation demonstrates how content-based music recommendation systems work, helping users discover songs that match their current vibe.
 
-Example:
-
-> This model suggests 3 to 5 songs from a small catalog based on a user's preferred genre, mood, and energy level. It is for classroom exploration only, not for real users.
+The system is intended for educational purposes and personal music discovery, not for production use in real music streaming platforms.
 
 ---
 
 ## 3. How It Works (Short Explanation)
 
-Describe your scoring logic in plain language.
+VibeFinder uses a simple weighted scoring system to match songs to user preferences:
 
-- What features of each song does it consider
-- What information about the user does it use
-- How does it turn those into a number
+**Features Used:**
+- Genre (categorical: pop, rock, lofi, jazz, electronic, etc.)
+- Mood (categorical: happy, chill, intense, relaxed, moody, etc.)  
+- Energy level (numerical: 0.0-1.0, where higher = more energetic)
 
-Try to avoid code in this section, treat it like an explanation to a non programmer.
+**Scoring Rules:**
+- +2.0 points for exact genre match
+- +1.0 point for exact mood match
+- Energy similarity: 1.0 - |song_energy - user_target_energy| (0.0-1.0 scale)
+
+Total score = genre_points + mood_points + energy_similarity
+
+Songs are ranked by total score (highest first) and explanations are provided showing which criteria matched.
 
 ---
 
 ## 4. Data
 
-Describe your dataset.
+**Dataset Size:** 19 songs in the catalog
 
-- How many songs are in `data/songs.csv`
-- Did you add or remove any songs
-- What kinds of genres or moods are represented
-- Whose taste does this data mostly reflect
+**Genres Represented:** pop, rock, lofi, jazz, synthwave, indie pop, electronic, country, classical, hip hop, ambient, reggae, metal, folk
+
+**Moods Represented:** happy, chill, intense, relaxed, moody, focused
+
+**Data Sources:** Manually created diverse song catalog with realistic attributes
+
+**Limitations:** Small dataset may not represent all musical tastes. Lacks real user listening data and collaborative filtering.
 
 ---
 
 ## 5. Strengths
 
-Where does your recommender work well
-
-You can think about:
-- Situations where the top results "felt right"
-- Particular user profiles it served well
-- Simplicity or transparency benefits
+VibeFinder works well for users with clear genre and mood preferences. It successfully differentiates between high-energy vs. low-energy music preferences and provides transparent explanations for recommendations. The weighted scoring system allows for nuanced matching that goes beyond simple categorical matching.
 
 ---
 
 ## 6. Limitations and Bias
 
-Where does your recommender struggle
+**Primary Limitation:** The system over-prioritizes genre matches (2.0 points) compared to mood (1.0 point), which can create "filter bubbles" where users only get recommendations from their favorite genre even if other genres might match their mood perfectly.
 
-Some prompts:
-- Does it ignore some genres or moods
-- Does it treat all users as if they have the same taste shape
-- Is it biased toward high energy or one genre by default
-- How could this be unfair if used in a real product
+**Dataset Bias:** The current catalog has more pop and electronic songs, which may bias recommendations toward these genres.
+
+**Feature Limitations:** Doesn't consider tempo, danceability, valence, or acousticness in the main scoring (though these are available in the data). Real systems would use more sophisticated algorithms.
+
+**User Experience Issue:** The energy similarity scoring might not be intuitive - a song with energy 0.3 getting a 0.7 similarity score for a user wanting energy 1.0 may not feel like a good match to users.
 
 ---
 
 ## 7. Evaluation
 
-How did you check your system
+I tested VibeFinder with four distinct user profiles:
 
-Examples:
-- You tried multiple user profiles and wrote down whether the results matched your expectations
-- You compared your simulation to what a real app like Spotify or YouTube tends to recommend
-- You wrote tests for your scoring logic
+1. **Pop Happy High Energy** - Perfect matches scored 3.98/4.0, showing strong performance for clear preferences
+2. **Chill Lofi Low Energy** - Successfully found chill songs with appropriate energy levels  
+3. **Intense Rock High Energy** - Prioritized exact genre/mood matches but also found high-energy alternatives
+4. **Relaxed Jazz Medium Energy** - Found the single jazz song despite energy differences
 
-You do not need a numeric metric, but if you used one, explain what it measures.
+The system performed well for users with strong genre preferences but showed limitations when genre matches were scarce. Energy similarity worked as expected, and explanations helped understand the scoring logic.
 
 ---
 
 ## 8. Future Work
 
-If you had more time, how would you improve this recommender
-
-Examples:
-
-- Add support for multiple users and "group vibe" recommendations
-- Balance diversity of songs instead of always picking the closest match
-- Use more features, like tempo ranges or lyric themes
+- **Add More Features:** Incorporate danceability, valence, and tempo into scoring
+- **Improve Energy Scoring:** Use a non-linear similarity function for more intuitive energy matching
+- **Balance Weights:** Experiment with different weightings for genre vs. mood vs. energy
+- **Expand Dataset:** Add hundreds of songs for better diversity and testing
+- **Collaborative Features:** Add user-user similarity or song-song similarity
+- **Better Explanations:** Show how close misses performed and why they were ranked lower
 
 ---
 
 ## 9. Personal Reflection
 
-A few sentences about what you learned:
-
-- What was your biggest learning moment during this project?
-- How did using AI tools help you, and when did you need to double-check them?
-- What surprised you about how simple algorithms can still "feel" like recommendations?
-- What would you try next if you extended this project?
-
+Building VibeFinder taught me how even a simple weighted scoring system can produce meaningful recommendations. I was surprised by how well the system differentiated between distinct user profiles like “intense rock” versus “chill lofi,” showing that even small datasets can illustrate recommendation concepts. Using AI tools helped speed up creating diverse test songs and brainstorming scoring logic, but I learned that human judgment is still crucial to verify calculations and ensure the recommendations feel reasonable. In future iterations, I want to explore balancing weights and adding collaborative filtering to reduce bias and make the system feel more dynamic.
