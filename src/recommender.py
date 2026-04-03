@@ -114,6 +114,7 @@ def load_songs(csv_path: str) -> List[Dict]:
             }
             songs.append(song_dict)
     print(f"Loading songs from {csv_path}...")
+    print(f"Loaded songs: {len(songs)}")
     return songs
 
 def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, str]:

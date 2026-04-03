@@ -126,15 +126,7 @@ These screenshots show the formatted recommendations with scores, reasons, and s
 
 ## Limitations and Risks
 
-Summarize some limitations of your recommender.
-
-Examples:
-
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
-
-You will go deeper on this in your model card.
+My recommender system has some clear limitations that make it less effective than real music platforms. The dataset is really small with only 19 songs, so it can't offer much variety or discover new music for users. It only looks at basic features like genre and mood, completely ignoring things like lyrics, artist popularity, or how songs sound together in a playlist. The scoring system heavily favors genre matches, which means users who like pop music will mostly get pop recommendations even if they want something different. This creates a filter bubble where people might miss out on great songs from other genres that match their mood or energy level perfectly.
 
 ---
 
@@ -147,9 +139,6 @@ AI tools (GitHub Copilot) were incredibly helpful for brainstorming the scoring 
 The most surprising discovery was how well the system worked despite its simplicity - it successfully differentiated between "intense rock" and "chill lofi" profiles, showing that even basic content-based filtering can feel intelligent.
 
 For the next iteration, I'd experiment with non-linear energy scoring and add collaborative filtering to reduce genre bias.
-
-- about how recommenders turn data into predictions
-- about where bias or unfairness could show up in systems like this
 
 
 ---
@@ -255,7 +244,8 @@ Examples:
 
 A few sentences about what you learned:
 
-- What surprised you about how your system behaved
-- How did building this change how you think about real music recommenders
-- Where do you think human judgment still matters, even if the model seems "smart"
+- What was your biggest learning moment during this project?
+- How did using AI tools help you, and when did you need to double-check them?
+- What surprised you about how simple algorithms can still "feel" like recommendations?
+- What would you try next if you extended this project?
 
