@@ -17,17 +17,28 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
-Explain your design in plain language.
+This music recommender simulates how real streaming platforms like Spotify recommend songs. Real systems use collaborative filtering (what other similar users liked) and content-based filtering (matching song attributes to user preferences).
 
-Some prompts to answer:
+My version uses content-based filtering with a weighted scoring system:
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+**Features Used:**
+- Genre (pop, rock, lofi, jazz, etc.)
+- Mood (happy, chill, intense, relaxed, etc.) 
+- Energy level (0.0-1.0 scale, where higher = more energetic)
+- Acousticness (0.0-1.0 scale, where higher = more acoustic)
 
-You can include a simple diagram or bullet list if helpful.
+**User Profile:**
+The system expects user preferences as a dictionary with:
+- `genre`: favorite genre (string)
+- `mood`: favorite mood (string)  
+- `energy`: target energy level (0.0-1.0 float)
+
+**Scoring Logic:**
+- +2.0 points for exact genre match
+- +1.0 point for exact mood match
+- Energy similarity score: 1.0 - |song_energy - user_target_energy| (ranges 0.0-1.0)
+
+Songs are ranked by total score (highest first) and the top recommendations are returned with explanations of why each song was recommended.
 
 ---
 
@@ -68,11 +79,29 @@ You can add more tests in `tests/test_recommender.py`.
 
 ## Experiments You Tried
 
-Use this section to document the experiments you ran. For example:
+I tested the system with four different user profiles to evaluate its performance:
 
-- What happened when you changed the weight on genre from 2.0 to 0.5
-- What happened when you added tempo or valence to the score
-- How did your system behave for different types of users
+1. **Pop Happy High Energy** (genre: pop, mood: happy, energy: 0.8)
+   - Top result: Sunrise City (pop/happy/0.82) - perfect match with score 3.98
+   - Shows the system correctly prioritizes exact matches
+
+2. **Chill Lofi Low Energy** (genre: lofi, mood: chill, energy: 0.4)  
+   - Top results: Focus Flow (lofi/focused/0.40) and Library Rain (lofi/chill/0.35)
+   - Demonstrates energy similarity scoring works for lower energy preferences
+
+3. **Intense Rock High Energy** (genre: rock, mood: intense, energy: 0.9)
+   - Top result: Storm Runner (rock/intense/0.91) - exact match
+   - Followed by Metal Thunder (metal/intense/0.98) - mood and energy match but different genre
+
+4. **Relaxed Jazz Medium Energy** (genre: jazz, mood: relaxed, energy: 0.5)
+   - Top result: Coffee Shop Stories (jazz/relaxed/0.37) - perfect genre/mood match
+   - Shows the system can find good matches even with energy differences
+
+**Key Findings:**
+- Genre matches (+2.0 points) have strong influence on rankings
+- The system successfully differentiates between energy levels
+- Mood matches (+1.0) provide good secondary ranking
+- Energy similarity scoring (0-1.0) works well for fine-tuning recommendations
 
 ---
 
@@ -92,11 +121,13 @@ You will go deeper on this in your model card.
 
 ## Reflection
 
-Read and complete `model_card.md`:
+This project taught me how recommendation systems balance different types of user preferences. My biggest learning moment was realizing how simple weighted scoring can create effective recommendations, but also how those weights can create unintended biases.
 
-[**Model Card**](model_card.md)
+AI tools (GitHub Copilot) were incredibly helpful for brainstorming the scoring logic and generating diverse test songs, but I had to double-check the math to ensure the energy similarity calculation was correct.
 
-Write 1 to 2 paragraphs here about what you learned:
+The most surprising discovery was how well the system worked despite its simplicity - it successfully differentiated between "intense rock" and "chill lofi" profiles, showing that even basic content-based filtering can feel intelligent.
+
+For the next iteration, I'd experiment with non-linear energy scoring and add collaborative filtering to reduce genre bias.
 
 - about how recommenders turn data into predictions
 - about where bias or unfairness could show up in systems like this

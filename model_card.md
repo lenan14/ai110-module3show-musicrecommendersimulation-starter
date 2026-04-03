@@ -1,63 +1,92 @@
-# 🎧 Model Card: Music Recommender Simulation
+# 🎧 Model Card: VibeFinder 1.0
 
 ## 1. Model Name  
 
-Give your model a short, descriptive name.  
-Example: **VibeFinder 1.0**  
+VibeFinder 1.0
 
 ---
 
 ## 2. Intended Use  
 
-Describe what your recommender is designed to do and who it is for. 
+VibeFinder is designed to recommend songs to users based on their musical preferences. It takes a user's favorite genre, preferred mood, and target energy level, then suggests the top 5 most relevant songs from a catalog. This simulation demonstrates how content-based music recommendation systems work, helping users discover songs that match their current vibe.
 
-Prompts:  
-
-- What kind of recommendations does it generate  
-- What assumptions does it make about the user  
-- Is this for real users or classroom exploration  
+The system is intended for educational purposes and personal music discovery, not for production use in real music streaming platforms.
 
 ---
 
 ## 3. How the Model Works  
 
-Explain your scoring approach in simple language.  
+VibeFinder uses a simple weighted scoring system to match songs to user preferences:
 
-Prompts:  
+**Features Used:**
+- Genre (categorical: pop, rock, lofi, jazz, electronic, etc.)
+- Mood (categorical: happy, chill, intense, relaxed, moody, etc.)  
+- Energy level (numerical: 0.0-1.0, where higher = more energetic)
 
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
+**Scoring Rules:**
+- +2.0 points for exact genre match
+- +1.0 point for exact mood match
+- Energy similarity: 1.0 - |song_energy - user_target_energy| (0.0-1.0 scale)
 
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
+Total score = genre_points + mood_points + energy_similarity
+
+Songs are ranked by total score (highest first) and explanations are provided showing which criteria matched.
 
 ---
 
 ## 4. Data  
 
-Describe the dataset the model uses.  
+**Dataset Size:** 19 songs in the catalog
 
-Prompts:  
+**Genres Represented:** pop, rock, lofi, jazz, synthwave, indie pop, electronic, country, classical, hip hop, ambient, reggae, metal, folk
 
-- How many songs are in the catalog  
-- What genres or moods are represented  
-- Did you add or remove data  
-- Are there parts of musical taste missing in the dataset  
+**Moods Represented:** happy, chill, intense, relaxed, moody, focused
+
+**Data Sources:** Manually created diverse song catalog with realistic attributes
+
+**Limitations:** Small dataset may not represent all musical tastes. Lacks real user listening data and collaborative filtering.
+
+---
+
+## 5. Strengths
+
+VibeFinder works well for users with clear genre and mood preferences. It successfully differentiates between high-energy vs. low-energy music preferences and provides transparent explanations for recommendations. The weighted scoring system allows for nuanced matching that goes beyond simple categorical matching.
 
 ---
 
-## 5. Strengths  
+## 6. Limitations and Bias 
 
-Where does your system seem to work well  
+**Primary Limitation:** The system over-prioritizes genre matches (2.0 points) compared to mood (1.0 point), which can create "filter bubbles" where users only get recommendations from their favorite genre even if other genres might match their mood perfectly.
 
-Prompts:  
+**Dataset Bias:** The current catalog has more pop and electronic songs, which may bias recommendations toward these genres.
 
-- User types for which it gives reasonable results  
-- Any patterns you think your scoring captures correctly  
-- Cases where the recommendations matched your intuition  
+**Feature Limitations:** Doesn't consider tempo, danceability, valence, or acousticness in the main scoring (though these are available in the data). Real systems would use more sophisticated algorithms.
+
+**User Experience Issue:** The energy similarity scoring might not be intuitive - a song with energy 0.3 getting a 0.7 similarity score for a user wanting energy 1.0 may not feel like a good match to users.
 
 ---
+
+## 7. Evaluation  
+
+I tested VibeFinder with four distinct user profiles:
+
+1. **Pop Happy High Energy** - Perfect matches scored 3.98/4.0, showing strong performance for clear preferences
+2. **Chill Lofi Low Energy** - Successfully found chill songs with appropriate energy levels  
+3. **Intense Rock High Energy** - Prioritized exact genre/mood matches but also found high-energy alternatives
+4. **Relaxed Jazz Medium Energy** - Found the single jazz song despite energy differences
+
+The system performed well for users with strong genre preferences but showed limitations when genre matches were scarce. Energy similarity worked as expected, and explanations helped understand the scoring logic.
+
+---
+
+## 8. Future Work  
+
+- **Add More Features:** Incorporate danceability, valence, and tempo into scoring
+- **Improve Energy Scoring:** Use a non-linear similarity function for more intuitive energy matching
+- **Balance Weights:** Experiment with different weightings for genre vs. mood vs. energy
+- **Expand Dataset:** Add hundreds of songs for better diversity and testing
+- **Collaborative Features:** Add user-user similarity or song-song similarity
+- **Better Explanations:** Show how close misses performed and why they were ranked lower
 
 ## 6. Limitations and Bias 
 
