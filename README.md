@@ -43,7 +43,7 @@ Songs are ranked by total score (highest first) and the top recommendations are 
 6. Sort all songs from highest to lowest score.  
 7. Return the top-ranked songs as recommendations with explanations.
 
-**Potential Biases**
+**Potential Biases:**
 - This system may over-prioritize genre because it has the highest weight, which could cause it to ignore songs that better match the user's mood or energy but belong to a different genre.
 
 ---
