@@ -2,22 +2,13 @@
 
 ## Project Summary
 
-In this project you will build and explain a small music recommender system.
-
-Your goal is to:
-
-- Represent songs and a user "taste profile" as data
-- Design a scoring rule that turns that data into recommendations
-- Evaluate what your system gets right and wrong
-- Reflect on how this mirrors real world AI recommenders
-
-Replace this paragraph with your own summary of what your version does.
+This project builds a simple music recommender system that suggests songs based on a user’s taste profile. Songs and user preferences are represented using basic features such as genre, mood, and tempo. The system then applies a scoring method to compare songs with the user’s preferences and rank them accordingly. While it is a simplified version, it reflects how platforms like Spotify personalize recommendations. The project also explores how well the system performs, what it gets right or wrong, and how these ideas connect to real-world AI recommendation systems.
 
 ---
 
 ## How The System Works
 
-This music recommender simulates how real streaming platforms like Spotify recommend songs. Real systems use collaborative filtering (what other similar users liked) and content-based filtering (matching song attributes to user preferences).
+This music recommender is designed to mimic how real streaming platforms like Spotify suggest songs to their users. In real systems, recommendations are based on a combination of collaborative filtering, which looks at what people with similar tastes enjoy, and content-based filtering, which focuses on song features like genre, tempo, and mood. For this version, the system will focus more on matching song characteristics to user preferences while still taking general listening patterns into account. The goal is to create recommendations that feel personal and relevant, even though the system is simpler than those used by large streaming platforms.
 
 My version uses content-based filtering with a weighted scoring system:
 
@@ -40,6 +31,20 @@ The system expects user preferences as a dictionary with:
 
 Songs are ranked by total score (highest first) and the top recommendations are returned with explanations of why each song was recommended.
 
+**Algorithm Recipe:**
+1. Take the user’s taste profile, including their preferred genre, mood, and energy level.  
+2. Loop through each song in the dataset.  
+3. For each song, compare its features (genre, mood, energy) to the user’s preferences.  
+4. Assign a score:
+   - Add 2.0 points if the genre matches  
+   - Add 1.0 point if the mood matches  
+   - Add an energy similarity score based on how close the song’s energy is to the user’s target  
+5. Calculate the total score for each song.  
+6. Sort all songs from highest to lowest score.  
+7. Return the top-ranked songs as recommendations with explanations.
+
+**Potential Biases**
+- This system may over-prioritize genre because it has the highest weight, which could cause it to ignore songs that better match the user’s mood or energy but belong to a different genre.
 ---
 
 ## Getting Started
@@ -102,6 +107,34 @@ I tested the system with four different user profiles to evaluate its performanc
 - The system successfully differentiates between energy levels
 - Mood matches (+1.0) provide good secondary ranking
 - Energy similarity scoring (0-1.0) works well for fine-tuning recommendations
+
+## CLI Verification Screenshot
+
+Here is the terminal output showing recommendations for the default "pop/happy" profile:
+
+```
+Loading songs from ../data/songs.csv...
+Loaded songs: 19
+
+=== Pop Happy High Energy ===
+1. Sunrise City by Neon Echo - Score: 3.98
+   Because: genre match (+2.0), mood match (+1.0), energy similarity (0.98)
+   Genre: pop, Mood: happy, Energy: 0.82
+2. Gym Hero by Max Pulse - Score: 2.87
+   Because: genre match (+2.0), energy similarity (0.87)
+   Genre: pop, Mood: intense, Energy: 0.93
+3. Rooftop Lights by Indigo Parade - Score: 1.96
+   Because: mood match (+1.0), energy similarity (0.96)
+   Genre: indie pop, Mood: happy, Energy: 0.76
+4. Dance Fever by Electro Beats - Score: 1.88
+   Because: mood match (+1.0), energy similarity (0.88)
+   Genre: electronic, Mood: happy, Energy: 0.92
+5. Night Drive Loop by Neon Echo - Score: 0.95
+   Because: energy similarity (0.95)
+   Genre: synthwave, Mood: moody, Energy: 0.75
+```
+
+The output shows clean, readable formatting with song titles, scores, scoring reasons, and song attributes for each recommendation.
 
 ---
 
